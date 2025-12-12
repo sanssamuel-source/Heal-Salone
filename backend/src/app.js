@@ -13,13 +13,23 @@ const adminRoutes = require('./routes/admin.routes');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); 
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.send(200);
+  }
+  next();
+});
+// app.use(cors()); // Using manual headers instead for total control
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.get('/', (req, res) => res.send('Heal Salone Backend API is Running'));
 app.get('/api/ping', (req, res) => res.json({ message: 'pong', timestamp: new Date() }));
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
