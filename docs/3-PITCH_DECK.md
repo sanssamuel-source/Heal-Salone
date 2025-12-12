@@ -4,7 +4,7 @@
 
 - **Project Name:** HEAL Salone
 - **Tagline:** Bridging the Gap Between Emergency and Response.
-- **Team:* [Samuel, Tonny and Zara sansconstruction16@gmail.com +23279093505]*
+- **Team:** [Your Team Name]
 - **Event:** ChristEX Civic Hackathon 2025
 
 ## Slide 2: The Problem
@@ -63,5 +63,3 @@
 - **Our Ask:** Seed funding for server interaction and SMS gateway costs.
 - **Our Promise:** A healthier, safer Sierra Leone.
 - **Join Us:** visit `heal-salone.vercel.app`
-
-
