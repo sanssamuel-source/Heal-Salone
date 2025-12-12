@@ -6,16 +6,9 @@ import axios from 'axios'
 
 // Set Axios Base URL from Environment Variable (for Vercel)
 // Set Axios Base URL
-const envUrl = import.meta.env.VITE_API_URL;
-console.log('[DEBUG] VITE_API_URL:', envUrl);
-
-// If URL is set and NOT just a slash, use it. Otherwise use relative (Proxy)
-if (envUrl && envUrl !== '/') {
-  axios.defaults.baseURL = envUrl;
-} else {
-  console.log('[DEBUG] Using Vercel Proxy (Relative Path)');
-  axios.defaults.baseURL = ''; // Use relative path
-}
+// FORCE RELATIVE PATH to use Vercel Proxy
+console.log('[DEBUG] Forcing Proxy Mode (v18)');
+axios.defaults.baseURL = '';
 
 import ErrorBoundary from './components/ErrorBoundary'
 

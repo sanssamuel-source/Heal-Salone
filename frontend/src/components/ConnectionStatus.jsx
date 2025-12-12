@@ -5,12 +5,10 @@ import { Wifi, WifiOff, AlertTriangle } from 'lucide-react';
 const ConnectionStatus = () => {
   const [status, setStatus] = useState('checking'); // checking, connected, error
   const [details, setDetails] = useState('');
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const isHttps = window.location.protocol === 'https:';
-  
-  // Calculate target here so it is available for render
-  const effectiveUrl = (apiUrl && apiUrl !== '/') ? apiUrl : '';
-  const target = effectiveUrl ? `${effectiveUrl}/api/ping` : '/api/ping';
+  // Force relative path (Proxy) to avoid CORS and Mixed Content
+  const effectiveUrl = ''; 
+  const target = '/api/ping'; // Always use relative path for Proxy
+  const version = "v18 (Proxy Mode)";
 
   useEffect(() => {
     const checkConnection = async () => {
@@ -36,7 +34,7 @@ const ConnectionStatus = () => {
   if (status === 'connected') return (
     <div className="flex items-center gap-2 text-xs text-emerald-600 bg-emerald-50 p-2 rounded mb-4">
       <Wifi size={14} />
-      <span>Backend Online ({apiUrl || 'Local'})</span>
+      <span>Backend Online ({version})</span>
     </div>
   );
 
@@ -61,10 +59,9 @@ const ConnectionStatus = () => {
         <span>Backend Disconnected</span>
       </div>
       <div className="ml-5">
-        <p>Target: <b>{target}</b></p>
+        <p>Target: <b>{target}</b> [{version}]</p>
         <p>Error: {details}</p>
-        {!apiUrl && <p className="mt-1 font-bold">MISSING VITE_API_URL in Vercel!</p>}
-        {apiUrl && <p className="mt-1 text-[10px] text-slate-500">Ensure Railway is running and URL starts with https://.</p>}
+        <p className="mt-1 text-[10px] text-slate-500">Using Vercel Proxy to bypass CORS.</p>
       </div>
     </div>
   );
