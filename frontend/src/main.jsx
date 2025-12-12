@@ -5,11 +5,16 @@ import './index.css'
 import axios from 'axios'
 
 // Set Axios Base URL from Environment Variable (for Vercel)
-console.log('[DEBUG] VITE_API_URL:', import.meta.env.VITE_API_URL);
-if (import.meta.env.VITE_API_URL) {
-  axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+// Set Axios Base URL
+const envUrl = import.meta.env.VITE_API_URL;
+console.log('[DEBUG] VITE_API_URL:', envUrl);
+
+// If URL is set and NOT just a slash, use it. Otherwise use relative (Proxy)
+if (envUrl && envUrl !== '/') {
+  axios.defaults.baseURL = envUrl;
 } else {
-  console.error('[CRITICAL] VITE_API_URL is missing! Requests will fail.');
+  console.log('[DEBUG] Using Vercel Proxy (Relative Path)');
+  axios.defaults.baseURL = ''; // Use relative path
 }
 
 import ErrorBoundary from './components/ErrorBoundary'
