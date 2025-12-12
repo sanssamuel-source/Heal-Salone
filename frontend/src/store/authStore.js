@@ -16,7 +16,9 @@ const useAuthStore = create((set) => ({
       localStorage.setItem('token', token);
       set({ user, token, isAuthenticated: true, isLoading: false });
     } catch (error) {
-      set({ error: error.response?.data?.error || 'Login failed', isLoading: false });
+      const errorMessage = error.response?.data?.error || error.message || 'Login failed';
+      console.error('Login Error:', error);
+      set({ error: errorMessage, isLoading: false });
       throw error;
     }
   },
@@ -29,7 +31,9 @@ const useAuthStore = create((set) => ({
       localStorage.setItem('token', token);
       set({ user, token, isAuthenticated: true, isLoading: false });
     } catch (error) {
-      set({ error: error.response?.data?.error || 'Signup failed', isLoading: false });
+      const errorMessage = error.response?.data?.error || error.message || 'Signup failed';
+      console.error('Signup Error:', error);
+      set({ error: errorMessage, isLoading: false });
       throw error;
     }
   },

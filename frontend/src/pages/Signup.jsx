@@ -66,7 +66,19 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            {error && <div className="text-red-600 text-sm">{error}</div>}
+            {error && (
+              <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+                <div className="flex">
+                  <div className="ml-3">
+                     <p className="text-sm text-red-700 font-bold">Error</p>
+                     <p className="text-sm text-red-700">{error}</p>
+                     {error.includes('Network Error') && (
+                        <p className="text-xs text-red-600 mt-1">Check your VITE_API_URL setting in Vercel.</p>
+                     )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div>
               <Button type="submit" className="w-full" isLoading={isLoading}>
