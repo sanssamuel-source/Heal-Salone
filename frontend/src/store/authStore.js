@@ -31,7 +31,8 @@ const useAuthStore = create((set) => ({
       localStorage.setItem('token', token);
       set({ user, token, isAuthenticated: true, isLoading: false });
     } catch (error) {
-      const errorMessage = error.response?.data?.error || error.message || 'Signup failed';
+      const fullUrl = error.config ? (error.config.baseURL || '') + error.config.url : 'Unknown URL';
+      const errorMessage = `Failed hitting ${fullUrl}: ${error.message}`;
       console.error('Signup Error:', error);
       set({ error: errorMessage, isLoading: false });
       throw error;

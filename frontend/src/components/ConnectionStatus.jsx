@@ -58,10 +58,10 @@ const ConnectionStatus = () => {
         <span>Backend Disconnected</span>
       </div>
       <div className="ml-5">
-        <p>Target: {apiUrl || 'Undefined (Using relative path)'}</p>
+        <p>Target: <b>{target}</b></p>
         <p>Error: {details}</p>
         {!apiUrl && <p className="mt-1 font-bold">MISSING VITE_API_URL in Vercel!</p>}
-        {apiUrl && <p className="mt-1 text-[10px] text-slate-500">Ensure Railway is running and URL has no trailing slash.</p>}
+        {apiUrl && <p className="mt-1 text-[10px] text-slate-500">Ensure Railway is running and URL starts with https://.</p>}
       </div>
     </div>
   );
