@@ -9,7 +9,8 @@ const ConnectionStatus = () => {
   const isHttps = window.location.protocol === 'https:';
   
   // Calculate target here so it is available for render
-  const target = apiUrl ? `${apiUrl}/api/ping` : '/api/ping';
+  const effectiveUrl = (apiUrl && apiUrl !== '/') ? apiUrl : '';
+  const target = effectiveUrl ? `${effectiveUrl}/api/ping` : '/api/ping';
 
   useEffect(() => {
     const checkConnection = async () => {
