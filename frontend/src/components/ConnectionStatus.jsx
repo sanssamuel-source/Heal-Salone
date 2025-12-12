@@ -27,7 +27,7 @@ const ConnectionStatus = () => {
       }
     };
     checkConnection();
-  }, [apiUrl, isHttps]);
+  }, []);
 
   if (status === 'checking') return <div className="text-xs text-slate-500 mb-4">Checking connection to Backend...</div>;
   
