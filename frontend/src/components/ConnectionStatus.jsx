@@ -7,6 +7,9 @@ const ConnectionStatus = () => {
   const [details, setDetails] = useState('');
   const apiUrl = import.meta.env.VITE_API_URL;
   const isHttps = window.location.protocol === 'https:';
+  
+  // Calculate target here so it is available for render
+  const target = apiUrl ? `${apiUrl}/api/ping` : '/api/ping';
 
   useEffect(() => {
     const checkConnection = async () => {
@@ -17,7 +20,6 @@ const ConnectionStatus = () => {
       }
 
       try {
-        const target = apiUrl ? `${apiUrl}/api/ping` : '/api/ping';
         await axios.get(target);
         setStatus('connected');
       } catch (err) {
