@@ -7,20 +7,6 @@ const openai = process.env.OPENAI_API_KEY
   ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   : null;
 
-const chatSchema = z.object({
-  message: z.string().min(1),
-});
-
-exports.askAssistant = async (req, res, next) => {
-  try {
-    const { message } = chatSchema.parse(req.body);
-
-    let reply = '';
-
-    if (openai) {
-      try {
-        const completion = await openai.chat.completions.create({
-          messages: [
 const SYSTEM_PROMPT = `
 You are 'HealthBot', the AI triage assistant for HEAL Salone, serving communities in Sierra Leone.
 YOUR GOAL: To provide immediate, accurate, and calm health guidance to users who may be in remote areas.
@@ -35,6 +21,20 @@ GUIDELINES:
    - If asked about politics or unrelated topics, politely decline.
 `;
 
+const chatSchema = z.object({
+  message: z.string().min(1),
+});
+
+exports.askAssistant = async (req, res, next) => {
+  try {
+    const { message } = chatSchema.parse(req.body);
+
+    let reply = '';
+
+    if (openai) {
+      try {
+        const completion = await openai.chat.completions.create({
+          messages: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: message }
           ],
