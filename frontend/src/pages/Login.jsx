@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 import Button from '../components/Button';
+import ConnectionStatus from '../components/ConnectionStatus';
 import Input from '../components/Input';
 import { HeartPulse } from 'lucide-react';
 
@@ -40,6 +41,7 @@ const Login = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <ConnectionStatus />
           <form className="space-y-6" onSubmit={handleSubmit}>
             <Input
               label="Email address"
