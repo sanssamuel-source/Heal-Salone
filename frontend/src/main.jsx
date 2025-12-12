@@ -12,8 +12,12 @@ if (import.meta.env.VITE_API_URL) {
   console.error('[CRITICAL] VITE_API_URL is missing! Requests will fail.');
 }
 
+import ErrorBoundary from './components/ErrorBoundary'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>,
 )
